@@ -144,7 +144,7 @@ class Model(Resource):
                 value = str(getattr(obj, name, None))
                 ret.append(await input_.render(request, value))
                 continue
-            if isinstance(input_, inputs.ManyToMany):
+            if isinstance(input_, inputs.ManyToMany) and (obj is not None):
                 await obj.fetch_related(name)
             ret.append(await input_.render(request, getattr(obj, name, None)))
         return ret
