@@ -1,6 +1,6 @@
 import os
 
-import aioredis
+from redis import asyncio as aioredis
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware

@@ -2,7 +2,7 @@ import typing
 import uuid
 from typing import Type
 
-from aioredis import Redis
+from redis import Redis
 from fastapi import Depends, Form
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request

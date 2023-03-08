@@ -2,8 +2,14 @@
 
 ## 1.0
 
+### 1.1.0
+
+- Replace aioredis with redis. Redis > 4.2 supports asyncio natively
+
 ### 1.0.5
- ....
+
+....
+
 ### 1.0.4
 
 - Add `widgets.filters.Boolean` class

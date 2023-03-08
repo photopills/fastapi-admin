@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Type
 
-from aioredis import Redis
+from redis import Redis
 from fastapi import FastAPI
 from pydantic import HttpUrl
 from starlette.middleware.base import BaseHTTPMiddleware
