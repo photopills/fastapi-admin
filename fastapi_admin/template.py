@@ -14,8 +14,6 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 templates.env.globals["VERSION"] = VERSION
 templates.env.globals["NOW_YEAR"] = date.today().year
 templates.env.add_extension("jinja2.ext.i18n")
-templates.env.add_extension("jinja2.ext.autoescape")
-
 
 @pass_context
 def current_page_with_params(context: dict, params: dict):
