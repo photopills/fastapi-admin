@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import APIRouter, Depends, Path
 from jinja2 import TemplateNotFound
 from starlette.requests import Request
@@ -25,16 +27,17 @@ async def list_view(
     resource: str = Path(...),
     page_size: int = 10,
     page_num: int = 1,
+    order_by: Optional[str] = None,
 ):
     fields_label = model_resource.get_fields_label()
     fields = model_resource.get_fields()
     fk_fields = model_resource.get_fk_field()
     qs = model.all()
-    params, qs = await model_resource.resolve_query_params(
-        request, dict(request.query_params), qs
-    )
+    params, qs = await model_resource.resolve_query_params(request, dict(request.query_params), qs)
     filters = await model_resource.get_filters(request, params)
     total = await qs.count()
+    if order_by:
+        qs = qs.order_by(order_by)
     if page_size:
         qs = qs.limit(page_size)
     else:
@@ -257,14 +260,10 @@ async def create(
 @router.delete("/{resource}/delete/{pk}")
 async def delete(request: Request, pk: str, model: Model = Depends(get_model)):
     await model.filter(pk=pk).delete()
-    return RedirectResponse(
-        url=request.headers.get("referer"), status_code=HTTP_303_SEE_OTHER
-    )
+    return RedirectResponse(url=request.headers.get("referer"), status_code=HTTP_303_SEE_OTHER)
 
 
 @router.delete("/{resource}/delete")
 async def bulk_delete(request: Request, ids: str, model: Model = Depends(get_model)):
     await model.filter(pk__in=ids.split(",")).delete()
-    return RedirectResponse(
-        url=request.headers.get("referer"), status_code=HTTP_303_SEE_OTHER
-    )
+    return RedirectResponse(url=request.headers.get("referer"), status_code=HTTP_303_SEE_OTHER)

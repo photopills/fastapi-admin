@@ -5,6 +5,10 @@
 [![image](https://github.com/fastapi-admin/fastapi-admin/workflows/gh-pages/badge.svg)](https://github.com/fastapi-admin/fastapi-admin/actions?query=workflow:gh-pages)
 [![image](https://github.com/fastapi-admin/fastapi-admin/workflows/pypi/badge.svg)](https://github.com/fastapi-admin/fastapi-admin/actions?query=workflow:pypi)
 
+[中文文档](./README-zh.md)
+[한국어 문서](./README-ko.md)
+[日本語ドキュメント](./README-ja.md)
+
 ## 简介
 
 `fastapi-admin` 是一个基于 [FastAPI](https://github.com/tiangolo/fastapi)
@@ -49,3 +53,9 @@
 ## 许可
 
 本项目遵循 [Apache-2.0](https://github.com/fastapi-admin/fastapi-admin/blob/master/LICENSE) 开源许可。
+
+## 感谢
+
+[![image](./images/yxvm.png)](https://yxvm.com/)
+
+[NodeSupport](https://github.com/NodeSeekDev/NodeSupport) 赞助了本项目

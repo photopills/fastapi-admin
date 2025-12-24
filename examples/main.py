@@ -1,6 +1,7 @@
 import os
+from contextlib import asynccontextmanager
 
-from redis import asyncio as aioredis
+import redis.asyncio as redis
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
@@ -27,8 +28,30 @@ from fastapi_admin.exceptions import (
 )
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    r = redis.from_url(
+        settings.REDIS_URL,
+        decode_responses=True,
+        encoding="utf8",
+    )
+    await admin_app.configure(
+        logo_url="https://preview.tabler.io/static/logo-white.svg",
+        template_folders=[os.path.join(BASE_DIR, "templates")],
+        favicon_url="https://raw.githubusercontent.com/fastapi-admin/fastapi-admin/dev/images/favicon.png",
+        providers=[
+            LoginProvider(
+                login_logo_url="https://preview.tabler.io/static/logo.svg",
+                admin_model=Admin,
+            )
+        ],
+        redis=r,
+    )
+    yield
+
+
 def create_app():
-    app = FastAPI()
+    app = FastAPI(lifespan=lifespan)
     app.mount(
         "/static",
         StaticFiles(directory=os.path.join(BASE_DIR, "static")),
@@ -43,26 +66,6 @@ def create_app():
     admin_app.add_exception_handler(HTTP_404_NOT_FOUND, not_found_error_exception)
     admin_app.add_exception_handler(HTTP_403_FORBIDDEN, forbidden_error_exception)
     admin_app.add_exception_handler(HTTP_401_UNAUTHORIZED, unauthorized_error_exception)
-
-    @app.on_event("startup")
-    async def startup():
-        redis = aioredis.from_url(
-            settings.REDIS_URL,
-            decode_responses=True,
-            encoding="utf8",
-        )
-        await admin_app.configure(
-            logo_url="https://preview.tabler.io/static/logo-white.svg",
-            template_folders=[os.path.join(BASE_DIR, "templates")],
-            favicon_url="https://raw.githubusercontent.com/fastapi-admin/fastapi-admin/dev/images/favicon.png",
-            providers=[
-                LoginProvider(
-                    login_logo_url="https://preview.tabler.io/static/logo.svg",
-                    admin_model=Admin,
-                )
-            ],
-            redis=redis,
-        )
 
     app.mount("/admin", admin_app)
     app.add_middleware(
@@ -92,4 +95,4 @@ def create_app():
 app_ = create_app()
 
 if __name__ == "__main__":
-    uvicorn.run("main:app_", debug=True, reload=True)
+    uvicorn.run("main:app_", reload=True)

@@ -6,6 +6,8 @@
 [![image](https://github.com/fastapi-admin/fastapi-admin/workflows/pypi/badge.svg)](https://github.com/fastapi-admin/fastapi-admin/actions?query=workflow:pypi)
 
 [中文文档](./README-zh.md)
+[한국어 문서](./README-ko.md)
+[日本語ドキュメント](./README-ja.md)
 
 ## Introduction
 
@@ -56,10 +58,16 @@ Or pro version online demo [here](https://fastapi-admin-pro.long2ice.io/admin/lo
 
 ## Documentation
 
-See documentation at <https://fastapi-admin.github.io>.
+See documentation at <https://fastapi-admin-docs.long2ice.io>.
 
 ## License
 
 This project is licensed under the
 [Apache-2.0](https://github.com/fastapi-admin/fastapi-admin/blob/master/LICENSE)
 License.
+
+## Credits
+
+[![image](./images/yxvm.png)](https://yxvm.com/)
+
+[NodeSupport](https://github.com/NodeSeekDev/NodeSupport) supports this project.

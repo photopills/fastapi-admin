@@ -204,11 +204,11 @@ class Editor(Text):
 
 
 class DateTime(Text):
-    input_type = "datetime"
+    template = "widgets/inputs/datetime.html"
 
 
 class Date(Text):
-    input_type = "date"
+    template = "widgets/inputs/date.html"
 
 
 class File(Input):

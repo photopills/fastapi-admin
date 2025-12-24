@@ -140,7 +140,7 @@ class Model(Resource):
                 and name in obj._meta.fk_fields
             ):
                 await obj.fetch_related(name)
-                # Value must be the string representation of the fk obj 
+                # Value must be the string representation of the fk obj
                 value = str(getattr(obj, name, None))
                 ret.append(await input_.render(request, value))
                 continue
@@ -175,8 +175,7 @@ class Model(Resource):
                 continue
             if isinstance(input_, inputs.ForeignKey):
                 v = data.getlist(name)[0]
-                model = await input_.model.get(id=v)
-                ret[name] = model
+                ret[name] = int(v) if v else None
                 continue
             if isinstance(input_, inputs.ManyToMany):
                 v = data.getlist(name)
@@ -317,6 +316,7 @@ class Model(Resource):
             if field in cls.model._meta.fk_fields:
                 ret.append(field)
         return ret
+
 
 class Dropdown(Resource):
     resources: List[Type[Resource]]

@@ -2,17 +2,16 @@
 
 ## 1.0
 
-### 1.1.0
-
-- Replace aioredis with redis. Redis > 4.2 supports asyncio natively
-
 ### 1.0.5
 
-....
+- Fix translations build.
+- Improve datetime and date input
 
 ### 1.0.4
 
 - Add `widgets.filters.Boolean` class
+- Fix multiple json field input. (#98)
+- Fix `jinja2.ext.autoescape` error.
 
 ### 1.0.3
 
