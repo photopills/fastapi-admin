@@ -7,7 +7,7 @@
         {{ help_text }}
     </small>
 {% endif %}
-<input {% if not null %}required{% endif %} type="text" name="{{ name }}" value='{{ value|safe }}' hidden>
+<input {% if not null %}required{% endif %} type="text" name="{{ name }}" value='{{ value|tojson }}' hidden>
 <style>
     .jsoneditor {
         border: 1px solid #dadcde;
