@@ -25,7 +25,6 @@ python-multipart = "*"
 tortoise-orm = "*"
 uvicorn = { version = "*", extras = ["standard"] }
 pendulum = "*"
-redis = "^4.5.1"
 
 [tool.poetry.group.dev.dependencies]
 # test
